@@ -1,20 +1,10 @@
 import React from "react";
+import { Section } from "./types";
 
-type Field = {
-  fieldTitle?: string;
-  type: string;
-  required?: boolean;
-  text?: string;
-};
-
-interface Section {
-  title: string;
-
-  fields: Field[];
-}
 interface Props {
   sections: Section[];
   currentIndex: number;
+  onSubmit: () => void;
 }
 
 interface TextInputProps {
@@ -40,13 +30,14 @@ function RenderInput(props: TextInputProps) {
 }
 
 export function SectionView(props: Props) {
-  const { sections, currentIndex = 0 } = props;
+  const { sections, currentIndex = 0, onSubmit } = props;
 
   return (
     <>
       {sections[currentIndex].fields.map((f, index) => (
         <RenderInput key={`${index}-${f.fieldTitle}`} fieldTitle={f.fieldTitle!} type={f.type!} text={f.text} />
       ))}
+      <button onClick={onSubmit}>Submit</button>
     </>
   );
 }
