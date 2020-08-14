@@ -14,34 +14,39 @@ interface Section {
 }
 interface Props {
   sections: Section[];
+  currentIndex: number;
 }
 
-const checkData = (data: Section[]) => {
-  let isValid = true;
-  if (!data.length) {
-    isValid = false;
-    return isValid;
-  }
+interface TextInputProps {
+  text?: string;
+  type: string;
+  fieldTitle: string;
+}
 
-
-  for (let i = 0; i < data.length; i++) {
-    if (!data[i].title) {
-      isValid = false;
-      break;
-    }
-    if (!data[i].fields.length) {
-      isValid = false;
-      break;
-    }
+function RenderInput(props: TextInputProps) {
+  const { fieldTitle, type, text } = props;
+  if(type === 'checkbox') {
+    return(
+      <>
+      <div>{text}</div>
+      </>
+    )
   }
-  return isValid;
-};
+  return (
+    <>
+      <div>{fieldTitle}</div>
+    </>
+  );
+}
 
 export function SectionView(props: Props) {
-  const { sections } = props;
+  const { sections, currentIndex = 0 } = props;
 
-  const isDataInValid = !sections || !checkData(sections);
-
-  if (isDataInValid) return <div>Error something went wrong</div>;
-  return <div>name</div>;
+  return (
+    <>
+      {sections[currentIndex].fields.map((f, index) => (
+        <RenderInput key={`${index}-${f.fieldTitle}`} fieldTitle={f.fieldTitle!} type={f.type!} text={f.text} />
+      ))}
+    </>
+  );
 }
