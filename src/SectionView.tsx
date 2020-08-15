@@ -15,18 +15,10 @@ interface TextInputProps {
 
 function RenderInput(props: TextInputProps) {
   const { fieldTitle, type, text } = props;
-  if(type === 'checkbox') {
-    return(
-      <>
-      <div>{text}</div>
-      </>
-    )
+  if (type === "checkbox") {
+    return <>{text}</>;
   }
-  return (
-    <>
-      <div>{fieldTitle}</div>
-    </>
-  );
+  return <>{fieldTitle}</>;
 }
 
 export function SectionView(props: Props) {
@@ -35,7 +27,12 @@ export function SectionView(props: Props) {
   return (
     <>
       {sections[currentIndex].fields.map((f, index) => (
-        <RenderInput key={`${index}-${f.fieldTitle}`} fieldTitle={f.fieldTitle!} type={f.type!} text={f.text} />
+        <RenderInput
+          key={`${index}-${f.fieldTitle}`}
+          fieldTitle={f.fieldTitle!}
+          type={f.type!}
+          text={f.text}
+        />
       ))}
       <button onClick={onSubmit}>Submit</button>
     </>
