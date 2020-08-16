@@ -2,6 +2,14 @@ import React, { useState } from "react";
 
 import { isEmailValid, isPasswordValid } from "../../Shared/utils";
 
+function validateName(name: string) {
+  if (name === "") {
+    return "Name must not be empty";
+  }
+
+  return "";
+}
+
 function validateEmail(email: string) {
   if (email === "") {
     return "Email must not be empty";
@@ -23,7 +31,7 @@ function validatePassword(password: string) {
     return "Password must be atleast 9 characters long";
   }
 
-  if(!isPasswordValid(password)) {
+  if (!isPasswordValid(password)) {
     return "Password must contain 1 uppercase letter, 1 lowercase letter and a number";
   }
 
@@ -31,7 +39,7 @@ function validatePassword(password: string) {
 }
 export function User() {
   const [name, setName] = useState("");
-  const [nameError, setNameError] = useState(false);
+  const [nameError, setNameError] = useState("");
 
   const [email, setEmail] = useState("");
   const [emailError, setEmailError] = useState("");
@@ -40,9 +48,9 @@ export function User() {
   const [passwordError, setPasswordError] = useState("");
 
   function validateAndSubmitForm() {
-    if (name === "") {
-      setNameError(true);
-    }
+    const nameValidation = validateName(name);
+    setNameError(nameValidation);
+
     const emailValidation = validateEmail(email);
     setEmailError(emailValidation);
 
@@ -53,7 +61,7 @@ export function User() {
   return (
     <>
       <div>
-        <div>Name</div> {nameError && <span>Name must not be empty</span>}
+        <div>Name</div> {nameError && <span>{nameError}</span>}
         <input
           name="name"
           aria-label="name-input"
