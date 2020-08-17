@@ -1,11 +1,39 @@
-import React from 'react';
+import React, { useState } from "react";
 
-export function MultiStageForm() {
-  return(
+interface ProgressProps {
+  stages: string[];
+  currentStage: string;
+  currentStageIndex: number;
+}
+
+function StageProgress(props: ProgressProps) {
+  const { currentStage, stages } = props;
+
+  return (
     <>
-    <div>User</div>
-    <div>Privacy</div>
-    <div>Done</div>
+      <div>
+        {stages.map((s, i) => (
+          <div key={i}>
+            {s}
+            {s === currentStage && "*"}
+          </div>
+        ))}
+      </div>
     </>
-  )
+  );
+}
+export function MultiStageForm() {
+  const stages: string[] = ["User", "Privacy", "Done"];
+
+  const [currentStageIndex, setIndex] = useState<number>(0);
+
+  return (
+    <>
+      <StageProgress
+        currentStage={stages[currentStageIndex]}
+        currentStageIndex={currentStageIndex}
+        stages={stages}
+      />
+    </>
+  );
 }
