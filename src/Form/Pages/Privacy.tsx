@@ -1,6 +1,25 @@
 import React from "react";
+import { FormData } from "../../Shared/types";
 
-export function Privacy() {
+interface Props {
+  onSubmit: (formData: FormData) => void;
+}
+
+export function Privacy(props: Props) {
+  const { onSubmit } = props;
+
+  function handleSubmit() {
+    const formData: FormData = {
+      section: "Privacy",
+      fields: {
+        checkTrayInput: false,
+        checkOtherInput: false,
+      },
+    };
+
+    onSubmit(formData);
+  }
+
   return (
     <>
       <div>
@@ -14,7 +33,7 @@ export function Privacy() {
         </div>
         <input type="checkbox" />
       </div>
-      <button>Submit</button>
+      <button onClick={handleSubmit}>Submit</button>
     </>
   );
 }

@@ -48,7 +48,11 @@ export function MultiStageForm() {
     [currentStageIndex, formData, stages.length]
   );
 
-  const components = [<User onSubmit={onSubmitCallback} />, <Privacy />, <Done />];
+  const components = [
+    <User onSubmit={onSubmitCallback} />,
+    <Privacy onSubmit={onSubmitCallback} />,
+    <Done />,
+  ];
 
   return (
     <>
