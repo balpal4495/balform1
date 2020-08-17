@@ -14,6 +14,7 @@ export function Privacy() {
         </div>
         <input type="checkbox" />
       </div>
+      <button>Submit</button>
     </>
   );
 }

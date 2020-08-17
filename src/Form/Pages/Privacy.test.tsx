@@ -23,5 +23,10 @@ describe(":Privacy tests", () => {
       const checkboxelements = getAllByRole('checkbox');
       expect(checkboxelements.length).toBe(2);
     });
+    it("Should render the submit button", () => {
+      const { getByText } = render(<Privacy />);
+      const buttonElement = getByText(/Submit/);
+      expect(buttonElement).toBeInTheDocument();
+    });
   });
 });
