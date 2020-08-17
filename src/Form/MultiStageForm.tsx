@@ -1,4 +1,7 @@
 import React, { useState } from "react";
+import { User } from "./Pages/User";
+import { Privacy } from "./Pages/Privacy";
+import { Done } from "./Pages/Done";
 
 interface ProgressProps {
   stages: string[];
@@ -27,13 +30,18 @@ export function MultiStageForm() {
 
   const [currentStageIndex, setIndex] = useState<number>(0);
 
+  const components = [<User />, <Privacy />, <Done />];
+
   return (
     <>
-      <StageProgress
-        currentStage={stages[currentStageIndex]}
-        currentStageIndex={currentStageIndex}
-        stages={stages}
-      />
+      <div>
+        <StageProgress
+          currentStage={stages[currentStageIndex]}
+          currentStageIndex={currentStageIndex}
+          stages={stages}
+        />
+      </div>
+      {components[currentStageIndex]}
     </>
   );
 }
