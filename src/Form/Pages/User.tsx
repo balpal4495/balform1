@@ -8,6 +8,7 @@ interface Props {
   onSubmit: (formData: FormData) => void;
 }
 
+// these validation steps could also live in the shared utils 
 function validateName(name: string) {
   if (name === "") {
     return "Name must not be empty";

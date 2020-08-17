@@ -12,20 +12,24 @@ interface ProgressProps {
   currentStageIndex: number;
 }
 
+// This file could be broken out into its own self contained component
+// but its also small enough to stay here until it starts to get more complex
+// it can also work as a mechanism to go navigate the form with extended validation aspects
 function StageProgress(props: ProgressProps) {
   const { currentStage, stages } = props;
 
   return (
     <>
       <div className="multistageform-progress">
-        {stages.map((s, i) => (
+        {stages.map((stage, i) => (
           <div
             className={classnames("multistageform-progress__heading", {
-              "multistageform-progress__heading--active": currentStage === s,
+              "multistageform-progress__heading--active":
+                currentStage === stage,
             })}
             key={i}
           >
-            {s}
+            {stage}
           </div>
         ))}
       </div>
@@ -33,6 +37,7 @@ function StageProgress(props: ProgressProps) {
   );
 }
 export function MultiStageForm() {
+  // There should not be more stages than form pages, should put some form of defending this
   const stages: string[] = ["User", "Privacy", "Done"];
 
   const [currentStageIndex, setIndex] = useState<number>(0);
@@ -45,7 +50,11 @@ export function MultiStageForm() {
         [data.section]: data,
       }));
 
+      // These feel like magic numbers, but they're kto accomodate arrays starting from 0
       if (currentStageIndex + 1 === stages.length - 1) {
+
+        // have structured the data in this way purely for demo purposes
+        // an array would probably make more sense in a real word scenario (esp with graphql)
         const dataToSend = { ...formData, [data.section]: data };
         console.log("dataToSend", dataToSend);
       }
@@ -54,7 +63,8 @@ export function MultiStageForm() {
     [currentStageIndex, formData, stages.length]
   );
 
-  const components = [
+  // formPages should match whats in the stages array
+  const formPages = [
     <User onSubmit={onSubmitCallback} />,
     <Privacy onSubmit={onSubmitCallback} />,
     <Done />,
@@ -69,7 +79,7 @@ export function MultiStageForm() {
           stages={stages}
         />
       </div>
-      <div>{components[currentStageIndex]}</div>
+      <div>{formPages[currentStageIndex]}</div>
     </>
   );
 }
