@@ -70,6 +70,10 @@ describe(":App", () => {
         const submitButton1 = getByText(/Submit/);
         fireEvent.click(submitButton1);
 
+
+        const checkTrayElement = getByLabelText('tray-product-input');
+        fireEvent.click(checkTrayElement);
+
         const submitButton2 = getByText(/Submit/);
         fireEvent.click(submitButton2);
 

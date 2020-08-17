@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { FormData } from "../../Shared/types";
 
 interface Props {
@@ -7,13 +7,23 @@ interface Props {
 
 export function Privacy(props: Props) {
   const { onSubmit } = props;
+  
+  const [checkTray, setTrayCheck] = useState<boolean>(false);
+  const [checkOther, setOtherCheck] = useState<boolean>(false);
+
+  function handleTray() {
+    setTrayCheck(!checkTray);
+  }
+  function handleOther() {
+    setOtherCheck(!checkOther);
+  }
 
   function handleSubmit() {
     const formData: FormData = {
       section: "Privacy",
       fields: {
-        checkTrayInput: false,
-        checkOtherInput: false,
+        checkTrayInput: checkTray,
+        checkOtherInput: checkOther,
       },
     };
 
@@ -24,14 +34,14 @@ export function Privacy(props: Props) {
     <>
       <div>
         <div>Recieve updates about Tray.io product by email</div>
-        <input type="checkbox" />
+        <input type="checkbox"  checked={checkTray} aria-label="tray-product-input" onChange={handleTray} />
       </div>
       <div>
         <div>
           Recieve communication by email for other products created by the
           Tray.io team
         </div>
-        <input type="checkbox" />
+        <input type="checkbox" checked={checkOther} aria-label="tray-other-input" onChange={handleOther} />
       </div>
       <button onClick={handleSubmit}>Submit</button>
     </>
