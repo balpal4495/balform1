@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { FormData } from "../../Shared/types";
+import './Privacy.scss';
 
 interface Props {
   onSubmit: (formData: FormData) => void;
@@ -32,18 +33,20 @@ export function Privacy(props: Props) {
 
   return (
     <>
-      <div>
+    <div className="privacy">
+      <div className="privacy-checkbox-container" onClick={handleTray}>
         <input type="checkbox"  checked={checkTray} aria-label="tray-product-input" onChange={handleTray} />
         <div>Recieve updates about Tray.io product by email</div>
       </div>
-      <div>
+      <div className="privacy-checkbox-container" onClick={handleOther}>
         <input type="checkbox" checked={checkOther} aria-label="tray-other-input" onChange={handleOther} />
         <div>
           Recieve communication by email for other products created by the
           Tray.io team
         </div>
       </div>
-      <button onClick={handleSubmit}>Submit</button>
+      <button className="submit-button" onClick={handleSubmit}>Submit</button>
+    </div>
     </>
   );
 }
