@@ -33,15 +33,15 @@ export function Privacy(props: Props) {
   return (
     <>
       <div>
-        <div>Recieve updates about Tray.io product by email</div>
         <input type="checkbox"  checked={checkTray} aria-label="tray-product-input" onChange={handleTray} />
+        <div>Recieve updates about Tray.io product by email</div>
       </div>
       <div>
+        <input type="checkbox" checked={checkOther} aria-label="tray-other-input" onChange={handleOther} />
         <div>
           Recieve communication by email for other products created by the
           Tray.io team
         </div>
-        <input type="checkbox" checked={checkOther} aria-label="tray-other-input" onChange={handleOther} />
       </div>
       <button onClick={handleSubmit}>Submit</button>
     </>
