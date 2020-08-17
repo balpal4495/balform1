@@ -1,5 +1,5 @@
 import React from 'react';
-import { render } from '@testing-library/react';
+import { render, fireEvent } from '@testing-library/react';
 import App from './App';
 
 describe(':App', () => {
@@ -33,5 +33,45 @@ describe(':App', () => {
         expect(submitElement).toBeInTheDocument();
       })
     })
+  });
+
+  describe(':Form progression', () => {
+    describe(':Given correct inputs', () => {
+      it('Should move from User to Privacy section of the form', () => {
+        const { getByText, getByLabelText } = render(<App />);
+        const nameInput = getByLabelText("name-input");
+        const emailInput = getByLabelText("email-input");
+        const passwordInput = getByLabelText("password-input");
+        fireEvent.change(nameInput, { target: { value: "testname" } });
+        fireEvent.change(emailInput, { target: { value: "testname@test.com" } });
+        fireEvent.change(passwordInput, { target: { value: "Testpassword1" } });
+        const submitButton = getByText(/Submit/);
+
+        fireEvent.click(submitButton);
+
+        const checkbox1Text = getByText(
+          /Recieve updates about Tray.io product by email/
+        );
+        expect(checkbox1Text).toBeInTheDocument()
+      })
+    });
+    describe(':Given bad inputs', () => {
+      it('Should not move from User to Privacy section of the form', () => {
+        const { getByText, getByLabelText } = render(<App />);
+
+        const nameInput = getByLabelText("name-input");
+        const emailInput = getByLabelText("email-input");
+        const passwordInput = getByLabelText("password-input");
+        fireEvent.change(nameInput, { target: { value: "" } });
+        fireEvent.change(emailInput, { target: { value: "bademail" } });
+        fireEvent.change(passwordInput, { target: { value: "badpass" } });
+        const submitButton = getByText(/Submit/);
+        fireEvent.click(submitButton);
+
+        expect(nameInput).toBeInTheDocument()
+        expect(emailInput).toBeInTheDocument()
+        expect(passwordInput).toBeInTheDocument()
+      })
+    });
   })
 })

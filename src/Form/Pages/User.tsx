@@ -1,13 +1,18 @@
 import React, { useState } from "react";
 
 import { isEmailValid, isPasswordValid } from "../../Shared/utils";
+import { FormData } from "../../Shared/types";
+
+interface Props {
+  onSubmit: (formData: FormData) => void;
+}
 
 function validateName(name: string) {
   if (name === "") {
     return "Name must not be empty";
   }
 
-  return "";
+  return false
 }
 
 function validateEmail(email: string) {
@@ -19,7 +24,7 @@ function validateEmail(email: string) {
     return "Email must be valid";
   }
 
-  return "";
+  return false
 }
 
 function validatePassword(password: string) {
@@ -35,17 +40,18 @@ function validatePassword(password: string) {
     return "Password must contain 1 uppercase letter, 1 lowercase letter and a number";
   }
 
-  return "";
+  return false
 }
-export function User() {
+export function User(props: Props) {
+  const { onSubmit } = props;
   const [name, setName] = useState("");
-  const [nameError, setNameError] = useState("");
+  const [nameError, setNameError] = useState<string | boolean>(false);
 
   const [email, setEmail] = useState("");
-  const [emailError, setEmailError] = useState("");
+  const [emailError, setEmailError] = useState<string | boolean>(false);
 
   const [password, setPassword] = useState("");
-  const [passwordError, setPasswordError] = useState("");
+  const [passwordError, setPasswordError] = useState<string | boolean>(false);
 
   function validateAndSubmitForm() {
     const nameValidation = validateName(name);
@@ -56,6 +62,17 @@ export function User() {
 
     const passwordValidation = validatePassword(password);
     setPasswordError(passwordValidation);
+
+    if (nameValidation !== false || nameValidation !== false || passwordValidation !== false ) {
+      return;
+    } else {
+      const formData: FormData = {
+        section: "User",
+        fields: { name: name, email: email, password: password },
+      };
+      onSubmit(formData);
+    }
+
   }
 
   return (

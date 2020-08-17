@@ -1,15 +1,9 @@
-export type Field = {
-  fieldTitle?: string;
-  type: string;
-  required?: boolean;
-  text?: string;
-  validationType?: string;
-  minLength?: number;
-  maxLength?: number;
-};
+interface FieldData {
+  key: string,
+  value: any
+}
 
-export interface Section {
-  title: string;
-
-  fields: Field[];
+export interface FormData {
+  section: string;
+  fields: any;
 }
