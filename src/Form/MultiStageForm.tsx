@@ -1,9 +1,11 @@
 import React, { useState, useCallback } from "react";
+import classnames from "classnames";
 import { User } from "./Pages/User";
 import { Privacy } from "./Pages/Privacy";
 import { Done } from "./Pages/Done";
 import { FormData } from "../Shared/types";
 
+import "./MultiStageForm.scss";
 interface ProgressProps {
   stages: string[];
   currentStage: string;
@@ -15,11 +17,15 @@ function StageProgress(props: ProgressProps) {
 
   return (
     <>
-      <div>
+      <div className="multistageform-progress">
         {stages.map((s, i) => (
-          <div key={i}>
+          <div
+            className={classnames("multistageform-progress__heading", {
+              "multistageform-progress__heading--active": currentStage === s,
+            })}
+            key={i}
+          >
             {s}
-            {s === currentStage && "*"}
           </div>
         ))}
       </div>
@@ -56,14 +62,14 @@ export function MultiStageForm() {
 
   return (
     <>
-      <div>
+      <div className="multistageform">
         <StageProgress
           currentStage={stages[currentStageIndex]}
           currentStageIndex={currentStageIndex}
           stages={stages}
         />
       </div>
-      {components[currentStageIndex]}
+      <div>{components[currentStageIndex]}</div>
     </>
   );
 }
