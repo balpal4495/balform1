@@ -1,9 +1,9 @@
 interface FieldData {
-  key: string,
-  value: any
+  [key: string]: string | number | boolean | Date,
 }
+
 
 export interface FormData {
   section: string;
-  fields: any;
+  fields: FieldData;
 }
