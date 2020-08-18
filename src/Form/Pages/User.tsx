@@ -46,14 +46,15 @@ function validatePassword(password: string) {
 }
 export function User(props: Props) {
   const { onSubmit } = props;
-  const [name, setName] = useState("");
+  const [name, setName] = useState<string>("");
   const [nameError, setNameError] = useState<string | boolean>(false);
 
-  const [email, setEmail] = useState("");
+  const [email, setEmail] = useState<string>("");
   const [emailError, setEmailError] = useState<string | boolean>(false);
 
-  const [password, setPassword] = useState("");
   const [role, setRole] = useState<string>("");
+
+  const [password, setPassword] = useState<string>("");
   const [passwordError, setPasswordError] = useState<string | boolean>(false);
 
   function validateAndSubmitForm() {
@@ -103,6 +104,7 @@ export function User(props: Props) {
             name="role"
             placeholder="Role"
             type="text"
+            value={role}
             onChange={(e) => setRole(e.target.value)}
           />
         </div>
